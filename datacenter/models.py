@@ -3,10 +3,10 @@ from django.utils.timezone import localtime, now
 
 
 def format_duration(duration):
-    days_from = f"{int(duration // 86400): 03d}"
-    hours_from = f"{int((duration % 86400) // 3600): 02d}"
-    minutes_from = f"{int((duration % 3600) // 60): 02d}"
-    return f"{days_from}: {hours_from}: {minutes_from}".replace("000:", "")
+    days_from = f"{int(duration // 86400):03d}"
+    hours_from = f"{int((duration % 86400) // 3600):02d}"
+    minutes_from = f"{int((duration % 3600) // 60):02d}"
+    return f"{days_from}:{hours_from}:{minutes_from}".replace("000:", "")
 
 
 class Passcard(models.Model):
