@@ -1,12 +1,20 @@
 from django.db import models
 from django.utils.timezone import localtime, now
 
+SECONDS_IN_DAY = 86400
+SECONDS_IN_HOUR = 3600
+SECONDS_IN_MINUTE = 60
+
 
 def format_duration(duration):
-    days_from = f"{int(duration // 86400):03d}"
-    hours_from = f"{int((duration % 86400) // 3600):02d}"
-    minutes_from = f"{int((duration % 3600) // 60):02d}"
-    return f"{days_from}:{hours_from}:{minutes_from}".replace("000:", "")
+    days_from = int(duration // SECONDS_IN_DAY)
+    hours_from = int((duration % SECONDS_IN_DAY) // SECONDS_IN_HOUR)
+    minutes_from = int((duration % SECONDS_IN_HOUR) // SECONDS_IN_MINUTE)
+    formatted_duration = ""
+    if days_from > 0:
+        formatted_duration += f"{days_from:03d}:"
+    formatted_duration += f"{hours_from:02d}:{minutes_from:02d}"
+    return formatted_duration
 
 
 class Passcard(models.Model):
@@ -43,4 +51,4 @@ class Visit(models.Model):
         return visit_duration.total_seconds()
 
     def is_long(self, minutes=60):
-        return self.get_duration() > minutes * 60
+        return self.get_duration() > minutes * SECONDS_IN_MINUTE
