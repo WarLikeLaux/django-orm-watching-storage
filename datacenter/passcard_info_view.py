@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 def passcard_info_view(request, passcode):
     passcard = get_object_or_404(Passcard, passcode=passcode)
     passcard_visits_details = []
-    this_passcard_visits = Visit.objects.filter(passcard=passcard).all()
+    this_passcard_visits = Visit.objects.filter(passcard=passcard)
     for visit in this_passcard_visits:
         passcard_visits_details.append({
             'entered_at': localtime(visit.entered_at).strftime('%d-%m-%Y'),
