@@ -1,3 +1,8 @@
 *.pyc
 settings.json
 .env
+
+# repl.it files
+.replit
+poetry.lock
+pyproject.toml
